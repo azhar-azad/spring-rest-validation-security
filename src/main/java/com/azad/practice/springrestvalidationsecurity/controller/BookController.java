@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -22,6 +24,7 @@ import com.azad.practice.springrestvalidationsecurity.entity.BookEntity;
 import com.azad.practice.springrestvalidationsecurity.service.BookService;
 
 @RestController
+@Validated
 @RequestMapping(path = "books")
 public class BookController {
 
@@ -42,7 +45,7 @@ public class BookController {
 	}
 	
 	@GetMapping(path = "/{id}")
-	public BookEntity getOneBook(@PathVariable Long id) {
+	public BookEntity getOneBook(@PathVariable @Min(1) Long id) {
 		
 		return bookService.getOneBook(id);
 	}

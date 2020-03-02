@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolationException;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -32,8 +33,8 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 		response.sendError(HttpStatus.METHOD_NOT_ALLOWED.value());
 	}
 	
-	// error handle for @valid
-	
+	// error handle for @valid -- bean validation
+	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, 
 			HttpHeaders headers, HttpStatus status, WebRequest reques) {
 		
@@ -51,5 +52,11 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 		body.put("errors", errors);
 		
 		return new ResponseEntity<Object>(body, headers, status);
+	}
+	
+	// error handle for @PathVariable validation
+	@ExceptionHandler(ConstraintViolationException.class)
+	public void constraintViolationException(HttpServletResponse response) throws IOException {
+		response.sendError(HttpStatus.BAD_REQUEST.value());
 	}
 }
