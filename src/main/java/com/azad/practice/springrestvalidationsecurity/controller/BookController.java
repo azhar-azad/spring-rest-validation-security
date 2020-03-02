@@ -3,6 +3,8 @@ package com.azad.practice.springrestvalidationsecurity.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,7 +30,7 @@ public class BookController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED) // return 201 instead of 200
-	public BookEntity createBook(@RequestBody BookEntity newBook) {
+	public BookEntity createBook(@Valid @RequestBody BookEntity newBook) {
 		
 		return bookService.createBook(newBook);
 	}
