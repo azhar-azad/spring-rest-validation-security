@@ -2,3 +2,6 @@ CLASS NAME: BookController
 
 	MKYONG ==== MINE
 1. newBook ----> createBook
+2. findAll ----> getAllBooks
+3. findOne ----> getOneBook
+4. saveOrUpdate ----> updateBook
